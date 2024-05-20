@@ -29,7 +29,9 @@ function [xhat, meas] = UpdatedfilterTemplate(calAcc, calGyr, calMag)
   % Add your filter settings here.
   Rw = diag([0.01 0.01 0.01]);
   Ra = diag([0.01 0.01 0.01]);
+  Rm = diag([0.01 0.01 0.01]);
   g0 = [0.0087;0.1107;9.8373];
+  m0 = [0;sqrt((10)^2+(-33.5739)^2);42.4810];
   % Current filter state.
   x = [1; 0; 0 ;0];
   P = eye(nx, nx);
@@ -94,8 +96,17 @@ function [xhat, meas] = UpdatedfilterTemplate(calAcc, calGyr, calMag)
       end
 
       mag = data(1, 8:10)';
+      L=norm(m0);
       if ~any(isnan(mag))  % Mag measurements are available.
         % Do something
+        L=0.98*L+0.02*norm(mag);
+        if abs(L) < 100
+        [x,P] = mu_m(x,P,mag,Rm,m0);
+        [x,P] = mu_normalizeQ(x,P);
+        ownView.setMagDist(0);
+        else
+        ownView.setMagDist(1); 
+        end
       end
 
       orientation = data(1, 18:21)';  % Google's orientation estimate.

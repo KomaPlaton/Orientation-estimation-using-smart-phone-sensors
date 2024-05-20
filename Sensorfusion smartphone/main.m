@@ -132,8 +132,7 @@
 % legend('x','y','z')
 % print('mag.eps','-depsc');
 
-%% Task 5&6&7&8&9
-
+%% Task 5&6&7&8&9&10&11&12
 clear;clc;
 close all;
 % initialize enviroment
