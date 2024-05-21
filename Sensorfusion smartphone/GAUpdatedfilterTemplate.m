@@ -102,14 +102,14 @@ function [xhat, meas] = UpdatedfilterTemplate(calAcc, calGyr, calMag)
       L=norm(m0);
       if ~any(isnan(mag))  % Mag measurements are available.
         % Do something
-        L=0.98*L+0.02*norm(mag);
-        if abs(L) < 65
-        [x,P] = mu_m(x,P,mag,Rm,m0);
-        [x,P] = mu_normalizeQ(x,P);
-        ownView.setMagDist(0);
-        else
-        ownView.setMagDist(1); 
-        end
+        % L=0.98*L+0.02*norm(mag);
+        % if abs(L) < 70
+        % [x,P] = mu_m(x,P,mag,Rm,m0);
+        % [x,P] = mu_normalizeQ(x,P);
+        % ownView.setMagDist(0);
+        % else
+        % ownView.setMagDist(1); 
+        % end
       end
 
       orientation = data(1, 18:21)';  % Google's orientation estimate.

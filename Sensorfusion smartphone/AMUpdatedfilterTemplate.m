@@ -1,4 +1,4 @@
-function [xhat, meas] = UpdatedfilterTemplate(calAcc, calGyr, calMag)
+function [xhat, meas] = AMUpdatedfilterTemplate(calAcc, calGyr, calMag)
 % FILTERTEMPLATE  Filter template
 %
 % This is a template function for how to collect and filter data
@@ -94,8 +94,8 @@ function [xhat, meas] = UpdatedfilterTemplate(calAcc, calGyr, calMag)
       gyr = data(1, 5:7)';
       if ~any(isnan(gyr))  % Gyro measurements are available.
         % Do something
-        [x,P] = tu_qw(x,P,gyr,0.01,Rw);
-        [x,P] = mu_normalizeQ(x,P);
+        % [x,P] = tu_qw(x,P,gyr,0.01,Rw);
+        % [x,P] = mu_normalizeQ(x,P);
       end
 
       mag = data(1, 8:10)';
@@ -103,7 +103,7 @@ function [xhat, meas] = UpdatedfilterTemplate(calAcc, calGyr, calMag)
       if ~any(isnan(mag))  % Mag measurements are available.
         % Do something
         L=0.98*L+0.02*norm(mag);
-        if abs(L) < 65
+        if abs(L) < 70
         [x,P] = mu_m(x,P,mag,Rm,m0);
         [x,P] = mu_normalizeQ(x,P);
         ownView.setMagDist(0);

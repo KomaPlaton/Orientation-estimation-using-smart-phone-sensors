@@ -83,13 +83,13 @@ function [xhat, meas] = UpdatedfilterTemplate(calAcc, calGyr, calMag)
       acc = data(1, 2:4)';
       if ~any(isnan(acc))  % Acc measurements are available.
         % Do something
-        if abs(acc(1)) < 1 || abs(acc(2)) < 1 || abs(acc(3)) < 10
-            [x,P] = mu_g(x,P,acc,Ra,g0);
-            [x,P] = mu_normalizeQ(x,P);
-            ownView.setAccDist(0)
-        else
-            ownView.setAccDist(1)
-        end
+        % if abs(acc(1)) < 1 || abs(acc(2)) < 1 || abs(acc(3)) < 10
+        %     [x,P] = mu_g(x,P,acc,Ra,g0);
+        %     [x,P] = mu_normalizeQ(x,P);
+        %     ownView.setAccDist(0)
+        % else
+        %     ownView.setAccDist(1)
+        % end
       end
       gyr = data(1, 5:7)';
       if ~any(isnan(gyr))  % Gyro measurements are available.
@@ -103,7 +103,7 @@ function [xhat, meas] = UpdatedfilterTemplate(calAcc, calGyr, calMag)
       if ~any(isnan(mag))  % Mag measurements are available.
         % Do something
         L=0.98*L+0.02*norm(mag);
-        if abs(L) < 65
+        if abs(L) < 70
         [x,P] = mu_m(x,P,mag,Rm,m0);
         [x,P] = mu_normalizeQ(x,P);
         ownView.setMagDist(0);

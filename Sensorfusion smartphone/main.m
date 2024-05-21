@@ -8,9 +8,9 @@
 % [xhat, meas] = filterTemplate();
 % save meas;
 % save xhat;
-
-%% Task 2
-
+% 
+% % Task 2
+% 
 % clear;clc;
 % close all;
 % load meas.mat;
@@ -132,7 +132,37 @@
 % legend('x','y','z')
 % print('mag.eps','-depsc');
 
-%% Task 5&6&7&8&9&10&11&12
+% %% Task 5&6&7&8&9&10&11&11
+% clear;clc;
+% close all;
+% % initialize enviroment
+% startup;
+% % check IP 
+% showIP;
+% % start reciving data from App streaming
+% [xhat, meas] = UpdatedfilterTemplate();
+% %% Plot results vs google (all sensors)
+% euler_own = q2euler(xhat.x);
+% euler_google = q2euler(meas.orient);
+% figure('Position',[300 300 600 400]);
+% hold on;
+% for i=1:3
+%     subplot(3,1,i);
+%     hold on
+%     plot(euler_own(i,:),'color','red','LineWidth',1);
+%     plot(euler_google(i,:),'color','black','LineWidth',1);
+%     ylim([-5 5])
+%     legend('OWN','Google')
+%     if i == 1
+%         title('yaw')
+%     elseif i == 2
+%         title('pitch')
+%     else
+%         title('roll')
+%     end
+% end
+% %yaw pitch roll
+%% Task 12 
 clear;clc;
 close all;
 % initialize enviroment
@@ -141,3 +171,95 @@ startup;
 showIP;
 % start reciving data from App streaming
 [xhat, meas] = UpdatedfilterTemplate();
+% Plot results vs google (all sensors)
+euler_own0 = q2euler(xhat.x);
+euler_google0 = q2euler(meas.orient);
+figure('Position',[300 300 600 400]);
+hold on;
+for i=1:3
+    subplot(3,1,i);
+    hold on
+    plot(euler_own0(i,:),'color','red','LineWidth',1);
+    plot(euler_google0(i,:),'color','black','LineWidth',1);
+    ylim([-5 5])
+    legend('OWN','Google')
+    if i == 1
+        title('yaw')
+    elseif i == 2
+        title('pitch')
+    else
+        title('roll')
+    end
+end
+%yaw pitch roll
+print('Allsensors.eps','-depsc');
+
+%% Plot results vs google (acc & mag)
+[xhat1, meas1] = AMUpdatedfilterTemplate();
+euler_own1 = q2euler(xhat1.x);
+euler_google1 = q2euler(meas1.orient);
+figure('Position',[300 300 600 400]);
+hold on;
+for i=1:3
+    subplot(3,1,i);
+    hold on
+    plot(euler_own1(i,:),'color','red','LineWidth',1);
+    plot(euler_google1(i,:),'color','black','LineWidth',1);
+    ylim([-5 5])
+    legend('OWN','Google')
+    if i == 1
+        title('yaw')
+    elseif i == 2
+        title('pitch')
+    else
+        title('roll')
+    end
+end
+%yaw pitch roll
+print('accandmag.eps','-depsc');
+%% Plot results vs google (gyr & acc)
+[xhat2, meas2] = GAUpdatedfilterTemplate();
+euler_own2 = q2euler(xhat2.x);
+euler_google2 = q2euler(meas2.orient);
+figure('Position',[300 300 600 400]);
+hold on;
+for i=1:3
+    subplot(3,1,i);
+    hold on
+    plot(euler_own2(i,:),'color','red','LineWidth',1);
+    plot(euler_google2(i,:),'color','black','LineWidth',1);
+    ylim([-5 5])
+    legend('OWN','Google')
+    if i == 1
+        title('yaw')
+    elseif i == 2
+        title('pitch')
+    else
+        title('roll')
+    end
+end
+%yaw pitch roll
+print('gyrandacc.eps','-depsc');
+%% Plot results vs google (gyr & mag)
+[xhat3, meas3] = GMUpdatedfilterTemplate();
+euler_own3 = q2euler(xhat3.x);
+euler_google3 = q2euler(meas3.orient);
+figure('Position',[300 300 600 400]);
+hold on;
+for i=1:3
+    subplot(3,1,i);
+    hold on
+    plot(euler_own3(i,:),'color','red','LineWidth',1);
+    plot(euler_google3(i,:),'color','black','LineWidth',1);
+    ylim([-5 5])
+    legend('OWN','Google')
+    if i == 1
+        title('yaw')
+    elseif i == 2
+        title('pitch')
+    else
+        title('roll')
+    end
+end
+%yaw pitch roll
+print('gyrandmag.eps','-depsc');
