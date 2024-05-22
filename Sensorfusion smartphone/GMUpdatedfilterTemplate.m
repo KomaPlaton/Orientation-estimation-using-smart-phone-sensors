@@ -30,7 +30,7 @@ function [xhat, meas] = UpdatedfilterTemplate(calAcc, calGyr, calMag)
   Rw = diag([0.01 0.01 0.01]);
   Ra = diag([0.01 0.01 0.01]);
   Rm = diag([0.01 0.01 0.01]);
-  g0 = [0.0087;0.1107;9.8373];
+  g0 = [0.0087;0.1107;-9.8373];
   m=[6.1735;
     -17.3441;
     -58.6072];
@@ -96,6 +96,9 @@ function [xhat, meas] = UpdatedfilterTemplate(calAcc, calGyr, calMag)
         % Do something
         [x,P] = tu_qw(x,P,gyr,0.01,Rw);
         [x,P] = mu_normalizeQ(x,P);
+      else
+          x = x;
+          P = P;
       end
 
       mag = data(1, 8:10)';
@@ -110,6 +113,9 @@ function [xhat, meas] = UpdatedfilterTemplate(calAcc, calGyr, calMag)
         else
         ownView.setMagDist(1); 
         end
+      else
+          x = x;
+          P = P;
       end
 
       orientation = data(1, 18:21)';  % Google's orientation estimate.
