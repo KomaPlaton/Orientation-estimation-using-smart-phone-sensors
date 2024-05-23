@@ -30,7 +30,11 @@ function [xhat, meas] = UpdatedfilterTemplate(calAcc, calGyr, calMag)
   Rw = diag([0.01 0.01 0.01]);
   Ra = diag([0.01 0.01 0.01]);
   Rm = diag([0.01 0.01 0.01]);
+<<<<<<< Updated upstream
   g0 = [0.0087;0.1107; -9.8373];
+=======
+  g0 = [0.0087;0.1107;-9.8373];
+>>>>>>> Stashed changes
   m=[6.1735;
     -17.3441;
     -58.6072];
@@ -82,7 +86,7 @@ function [xhat, meas] = UpdatedfilterTemplate(calAcc, calGyr, calMag)
 
       acc = data(1, 2:4)';
       if ~any(isnan(acc))  % Acc measurements are available.
-        % Do something
+          % Outlier rejection algorithm implementation
         if abs(acc(1)) < 1 || abs(acc(2)) < 1 || abs(acc(3)) < 10
             [x,P] = mu_g(x,P,acc,Ra,g0);
             [x,P] = mu_normalizeQ(x,P);
@@ -106,9 +110,15 @@ function [xhat, meas] = UpdatedfilterTemplate(calAcc, calGyr, calMag)
     
       mag = data(1, 8:10)';
       L=norm(m0);
+<<<<<<< Updated upstream
       if ~any(isnan(mag))  % Mag measurements are available.
         %Do something
         L=0.98*L+0.02*norm(mag);
+=======
+      if ~any(isnan(mag)) % Mag measurements are available.
+        % Outlier rejection algorithm implementation
+        L=0.98 * L + 0.02 * norm(mag);
+>>>>>>> Stashed changes
         if abs(L) < 65
         [x,P] = mu_m(x,P,mag,Rm,m0);
         [x,P] = mu_normalizeQ(x,P);
