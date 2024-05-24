@@ -27,14 +27,10 @@ function [xhat, meas] = UpdatedfilterTemplate(calAcc, calGyr, calMag)
   t0 = [];  % Initial time (initialize on first data received)
   nx = 4;   % Assuming that you use q as state variable.
   % Add your filter settings here.
-  Rw = diag([0.01 0.01 0.01]);
-  Ra = diag([0.01 0.01 0.01]);
-  Rm = diag([0.01 0.01 0.01]);
-<<<<<<< Updated upstream
-  g0 = [0.0087;0.1107; -9.8373];
-=======
+  Rw = diag([8.0386e-7 7.8222e-7 6.0404e-7]);
+  Ra = diag([2.4296e-4 1.5738e-4 1.2503e-4]);
+  Rm = diag([0.1415 0.0795 0.1277]);
   g0 = [0.0087;0.1107;-9.8373];
->>>>>>> Stashed changes
   m=[6.1735;
     -17.3441;
     -58.6072];
@@ -110,15 +106,9 @@ function [xhat, meas] = UpdatedfilterTemplate(calAcc, calGyr, calMag)
     
       mag = data(1, 8:10)';
       L=norm(m0);
-<<<<<<< Updated upstream
       if ~any(isnan(mag))  % Mag measurements are available.
         %Do something
         L=0.98*L+0.02*norm(mag);
-=======
-      if ~any(isnan(mag)) % Mag measurements are available.
-        % Outlier rejection algorithm implementation
-        L=0.98 * L + 0.02 * norm(mag);
->>>>>>> Stashed changes
         if abs(L) < 65
         [x,P] = mu_m(x,P,mag,Rm,m0);
         [x,P] = mu_normalizeQ(x,P);
